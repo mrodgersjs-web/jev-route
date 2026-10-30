@@ -1,0 +1,73 @@
+{
+  "schema": "jev-route.benchmark/v1",
+  "policy_default": { "confidence_floor": 0.55, "capability_weight": 0.6, "cost_weight": 0.2, "fit_bonus": 0.2 },
+  "cases": [
+    {
+      "name": "cheap-format-task-picks-fast",
+      "task": { "complexity": 0.2, "risk": 0.1 },
+      "candidates": [
+        { "name": "workhorse", "tier": "deep", "reliability": 0.97, "outward_ok": true },
+        { "name": "scout", "tier": "fast", "reliability": 0.9, "outward_ok": false }
+      ],
+      "expect_verdict": "PASS",
+      "expect_choice": "scout"
+    },
+    {
+      "name": "outward-email-needs-approved-candidate",
+      "task": { "complexity": 0.5, "risk": 0.9, "outward": true },
+      "candidates": [
+        { "name": "scout", "tier": "fast", "reliability": 0.95, "outward_ok": false },
+        { "name": "workhorse", "tier": "deep", "reliability": 0.97, "outward_ok": true }
+      ],
+      "expect_verdict": "PASS",
+      "expect_choice": "workhorse"
+    },
+    {
+      "name": "image-task-excludes-blind-tier",
+      "task": { "complexity": 0.6, "risk": 0.4, "needs_images": true },
+      "candidates": [
+        { "name": "scout", "tier": "fast", "reliability": 1.0 },
+        { "name": "palette", "tier": "visual", "reliability": 0.9 }
+      ],
+      "expect_verdict": "PASS",
+      "expect_choice": "palette"
+    },
+    {
+      "name": "deep-research-picks-deep",
+      "task": { "complexity": 0.85, "risk": 0.6 },
+      "candidates": [
+        { "name": "scout", "tier": "fast", "reliability": 0.95 },
+        { "name": "workhorse", "tier": "deep", "reliability": 0.95 }
+      ],
+      "expect_verdict": "PASS",
+      "expect_choice": "workhorse"
+    },
+    {
+      "name": "low-reliability-only-candidate-escalates",
+      "task": { "complexity": 0.5, "risk": 0.5 },
+      "candidates": [
+        { "name": "flaky", "tier": "standard", "reliability": 0.25 }
+      ],
+      "expect_verdict": "ESCALATE"
+    },
+    {
+      "name": "no-eligible-candidate-blocks",
+      "task": { "complexity": 0.5, "risk": 0.5, "allowed_tiers": ["visual"] },
+      "candidates": [
+        { "name": "scout", "tier": "fast", "reliability": 0.9 },
+        { "name": "workhorse", "tier": "deep", "reliability": 0.9 }
+      ],
+      "expect_verdict": "BLOCK"
+    },
+    {
+      "name": "ties-break-by-name",
+      "task": { "complexity": 0.45, "risk": 0.5 },
+      "candidates": [
+        { "name": "zeta", "tier": "standard", "reliability": 0.9 },
+        { "name": "alpha", "tier": "standard", "reliability": 0.9 }
+      ],
+      "expect_verdict": "PASS",
+      "expect_choice": "alpha"
+    }
+  ]
+}

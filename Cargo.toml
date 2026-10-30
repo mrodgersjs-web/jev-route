@@ -1,0 +1,13 @@
+[package]
+name = "jev-route"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Deterministic routing-policy CLI: task in, choice + confidence + fallback verdict out"
+repository = "https://github.com/mrodgersjs-web/jev-route"
+
+[dependencies]
+
+[profile.release]
+strip = true
+lto = true
