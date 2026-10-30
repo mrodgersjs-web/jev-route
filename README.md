@@ -6,6 +6,7 @@ this is the deterministic half of agent routing, the part that should be code.
 
 ![CI](https://github.com/mrodgersjs-web/jev-route/actions/workflows/ci.yml/badge.svg?branch=main)
 ![CI status](https://github.com/actions/workflow/mrodgersjs-web/jev-route/ci.yml/status)
+![CI status](https://github.com/actions/workflow/mrodgersjs-web/jev-route/ci.yml/status)
 
 ![flow](assets/jev-route-flow.svg)
 
