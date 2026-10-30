@@ -14,7 +14,7 @@ this is the deterministic half of agent routing, the part that should be code.
 ```bash
 git clone https://github.com/mrodgersjs-web/jev-route.git
 cd jev-route
-cargo test --release                       # 11 tests
+cargo test --release                       # 11 tests (the repo's npm test)
 cargo run --release -- validate \
   --fixture fixtures/benchmark.json        # 7/7 cases, exit 0
 ```
