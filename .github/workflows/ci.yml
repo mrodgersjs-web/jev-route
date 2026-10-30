@@ -18,3 +18,23 @@ jobs:
       - run: cargo test --release
       - run: cargo build --release
       - run: ./target/release/jev-route validate --fixture fixtures/benchmark.json
+
+  wasm:
+    name: wasm package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: build artifact
+        working-directory: wasm
+        run: ./build.sh
+      - name: fail if the committed artifact drifted
+        run: git diff --exit-code -- wasm/js/jev_route_wasm.wasm
+      - name: js contract tests
+        working-directory: wasm
+        run: npm test
