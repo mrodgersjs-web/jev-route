@@ -27,3 +27,4 @@ cargo run --release -- validate --fixture fixtures/benchmark.json
 - std-only. No new dependencies without a spec'd reason.
 - Exit codes are API: 0 dispatch, 3 escalate, 4 block.
 - Routing must stay deterministic: no clock, no env, no network in the policy.
+- The validate command below is the repo smoke: keep it runnable and keep CI green.
