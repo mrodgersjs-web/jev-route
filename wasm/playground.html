@@ -1,0 +1,33 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>jev-route-wasm playground</title>
+<style>
+ body { font: 14px/1.5 ui-monospace, Menlo, monospace; background:#0b1020; color:#e2e8f0; margin:2rem; }
+ textarea { width:100%; height:220px; background:#1e293b; color:#e2e8f0; border:1px solid #334155; border-radius:8px; padding:10px; }
+ pre { background:#1e293b; border:1px solid #334155; border-radius:8px; padding:10px; white-space:pre-wrap; }
+ button { background:#38bdf8; color:#0b1020; border:0; border-radius:8px; padding:8px 16px; font-weight:700; }
+</style>
+<h1>jev-route-wasm playground</h1>
+<p>Route a task against candidates, entirely in your browser. The policy is the same compiled Rust the CLI ships.</p>
+<textarea id="in"></textarea>
+<p><button id="go">route()</button></p>
+<pre id="out">…</pre>
+<script type="module">
+import { createJevRouter } from "./js/index.js";
+const input = {
+  task: { id: "demo", complexity: 0.5, risk: 0.9, outward: true },
+  candidates: [
+    { name: "scout", tier: "fast", reliability: 0.95 },
+    { name: "workhorse", tier: "deep", reliability: 0.97, outward_ok: true },
+    { name: "palette", tier: "visual", reliability: 0.9, outward_ok: true }
+  ]
+};
+document.getElementById("in").value = JSON.stringify(input, null, 2);
+const router = await createJevRouter(await (await fetch("./js/jev_route_wasm.wasm")).arrayBuffer());
+document.getElementById("go").onclick = () => {
+  const out = document.getElementById("out");
+  try { out.textContent = JSON.stringify(router.route(JSON.parse(document.getElementById("in").value)), null, 2); }
+  catch (e) { out.textContent = "Error: " + e.message; }
+};
+document.getElementById("go").click();
+</script>

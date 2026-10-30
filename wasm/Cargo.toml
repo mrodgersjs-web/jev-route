@@ -1,0 +1,18 @@
+[package]
+name = "jev-route-wasm"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "WebAssembly build of the jev-route deterministic routing policy, raw ABI, no wasm-bindgen"
+repository = "https://github.com/mrodgersjs-web/jev-route"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jev-route = { path = ".." }
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true

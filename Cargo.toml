@@ -11,3 +11,7 @@ repository = "https://github.com/mrodgersjs-web/jev-route"
 [profile.release]
 strip = true
 lto = true
+
+[workspace]
+members = ["", "wasm"]
+resolver = "2"

@@ -1,0 +1,13 @@
+{
+  "name": "jev-route-wasm",
+  "version": "0.1.0",
+  "description": "Deterministic AI-task routing policy as a WebAssembly module: task + candidates in, choice + confidence + fallback verdict out. Raw ABI, zero runtime dependencies.",
+  "license": "MIT",
+  "type": "module",
+  "main": "js/index.js",
+  "exports": { ".": "./js/index.js" },
+  "files": ["js/index.js", "js/jev_route_wasm.wasm", "README.md"],
+  "keywords": ["wasm", "webassembly", "ai-agents", "model-routing", "routing-policy", "deterministic", "llm", "evals"],
+  "repository": { "type": "git", "url": "git+https://github.com/mrodgersjs-web/jev-route.git", "directory": "wasm" },
+  "scripts": { "test": "node test/router.test.mjs" }
+}
